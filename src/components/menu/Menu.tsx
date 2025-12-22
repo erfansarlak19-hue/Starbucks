@@ -1,4 +1,4 @@
-import Cards from "../cards/Cards";
+import ProductList from "../productList/ProductList";
 import Cart from "../cart/Cart";
 
 export default function Home() {
@@ -11,10 +11,12 @@ export default function Home() {
 				</div>
 				<h2 className="text-xl font-semibold">Starbucks Online Coffee Order</h2>
 			</div>
-			<Cards />
+			<ProductList />
 			<Cart />
 			<p className="text-xl font-semibold">Total:$0</p>
-			<button className="bg-[#e9c9a2] w-full rounded-sm text-white font-semibold p-2 cursor-pointer">Submit Order</button>
+			<button className="bg-[#e9c9a2] w-full rounded-sm text-white font-semibold p-2 cursor-pointer">
+				Submit Order
+			</button>
 		</div>
 	);
 }
