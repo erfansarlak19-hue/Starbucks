@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { product } from "../menu/Menu";
 import ProductCard from "../productCard/ProductCard";
 
@@ -40,14 +41,49 @@ const productList = [
 ];
 
 type productListProps = {
-	addToCart : (item:product)=>void;
-}
+	addToCart: (item: product) => void;
+};
 
-export default function ProductList(props : productListProps) {
-	const {addToCart} = props; 
+export default function ProductList(props: productListProps) {
+	const { addToCart } = props;
+
+	const [products, setProducts] = useState(productList);
+
+	const handlePlus = (id: number) => {
+		setProducts((prev) =>
+			prev.map((item) => {
+				if (item.id === id) {
+					const newQty = item.quantity + 1;
+					const updated = { ...item, quantity: newQty };
+					addToCart(updated);
+					return updated;
+				}
+				return item;
+			})
+		);
+	};
+
+
+const handleMinus = (id: number) => {
+	setProducts((prev) =>
+		prev.map((item) => {
+			if (item.id === id) {
+				const newQty = Math.max(0, item.quantity - 1);
+				const updated = { ...item, quantity: newQty };
+				addToCart(updated);
+
+				return updated;
+			}
+			return item;
+		})
+	);
+};
+
+
+
 	return (
 		<div className="flex gap-3">
-			{productList.map((item) => (
+			{products.map((item) => (
 				<ProductCard
 					key={item.id}
 					id={item.id}
@@ -55,7 +91,8 @@ export default function ProductList(props : productListProps) {
 					img={item.img}
 					price={item.price}
 					quantity={item.quantity}
-					handelClick={() => addToCart(item)}
+					onIncrease={handlePlus}
+					onDecrease={handleMinus}
 				/>
 			))}
 		</div>

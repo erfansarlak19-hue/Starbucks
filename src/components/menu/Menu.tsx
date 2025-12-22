@@ -16,20 +16,23 @@ export default function Menu() {
 		{ product: product; count: number }[]
 	>([]);
 
-	const handelAddToCart = (item:product) => {
-		const index = cartItems.findIndex((cartItem)=> cartItem.product.id===item.id);
-		if (index === -1) {
-			setCartItems([...cartItems, { product: item, count: 1 }]);
-		} else {
-			setCartItems(
-				cartItems.map((cartItem) =>
+	const handelAddToCart = (item: product) => {
+		setCartItems((prev) => {
+			if (item.quantity === 0) {
+				return prev.filter((cartItem) => cartItem.product.id !== item.id);
+			}
+			const existing = prev.find((cartItem) => cartItem.product.id === item.id);
+			if (existing) {
+				return prev.map((cartItem) =>
 					cartItem.product.id === item.id
-						? { product: item, count: cartItem.count + 1 }
+						? { product: item, count: item.quantity }
 						: cartItem
-				)
-			);
-		}
+				);
+			}
+			return [...prev, { product: item, count: item.quantity }];
+		});
 	};
+
   return (
 		<div className="bg-[#ececec] flex flex-col gap-3 pt-3 justify-center items-center pl-3 pr-3">
 			<div className="flex flex-col gap-2 ">
