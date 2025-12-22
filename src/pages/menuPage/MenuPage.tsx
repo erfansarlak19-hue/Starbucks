@@ -1,9 +1,9 @@
-import Home from "../../components/menu/Menu";
+import Menu from "../../components/menu/Menu";
 
 export default function HomePage() {
   return (
     <div>
-      <Home/>
+      <Menu/>
     </div>
   )
 }

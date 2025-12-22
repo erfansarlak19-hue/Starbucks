@@ -1,3 +1,4 @@
+import type { product } from "../menu/Menu";
 import ProductCard from "../productCard/ProductCard";
 
 const productList = [
@@ -38,7 +39,12 @@ const productList = [
 	},
 ];
 
-export default function ProductList() {
+type productListProps = {
+	addToCart : (item:product)=>void;
+}
+
+export default function ProductList(props : productListProps) {
+	const {addToCart} = props; 
 	return (
 		<div className="flex gap-3">
 			{productList.map((item) => (
@@ -49,6 +55,7 @@ export default function ProductList() {
 					img={item.img}
 					price={item.price}
 					quantity={item.quantity}
+					handelClick={() => addToCart(item)}
 				/>
 			))}
 		</div>
