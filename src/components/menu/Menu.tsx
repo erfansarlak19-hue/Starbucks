@@ -16,6 +16,12 @@ export default function Menu() {
 		{ product: product; count: number }[]
 	>([]);
 
+const totalPrice = cartItems.reduce(
+	(sum, item) => sum + item.count * item.product.price,
+	0
+);
+
+
 	const handelAddToCart = (item: product) => {
 		setCartItems((prev) => {
 			if (item.quantity === 0) {
@@ -42,10 +48,19 @@ export default function Menu() {
 				</div>
 				<h2 className="text-xl font-semibold">Starbucks Online Coffee Order</h2>
 			</div>
-			<ProductList addToCart={handelAddToCart}/>
-			<Cart cartItems={cartItems}/>
-			<p className="text-xl font-semibold">Total:$0</p>
-			<button className="bg-[#e9c9a2] w-full rounded-sm text-white font-semibold p-2 cursor-pointer">
+			<ProductList addToCart={handelAddToCart} />
+			<Cart cartItems={cartItems} />
+			<p className="text-xl font-semibold">Total:${totalPrice}</p>
+			<button
+				disabled={cartItems.length === 0}
+				className={`w-full rounded-sm font-semibold p-2
+		${
+			cartItems.length === 0
+				? "bg-gray-400 cursor-not-allowed"
+				: "bg-[#e9c9a2] cursor-pointer text-white"
+		}
+	`}
+			>
 				Submit Order
 			</button>
 		</div>
