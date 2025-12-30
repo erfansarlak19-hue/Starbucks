@@ -63,23 +63,19 @@ export default function ProductList(props: productListProps) {
 		);
 	};
 
-
 const handleMinus = (id: number) => {
 	setProducts((prev) =>
 		prev.map((item) => {
 			if (item.id === id) {
-				const newQty = Math.max(0, item.quantity - 1);
+				const newQty = item.quantity > 0 ? item.quantity - 1 : 0;
 				const updated = { ...item, quantity: newQty };
 				addToCart(updated);
-
 				return updated;
 			}
 			return item;
 		})
 	);
 };
-
-
 
 	return (
 		<div className="flex gap-3">

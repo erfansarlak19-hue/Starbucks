@@ -10,7 +10,6 @@ export type product = {
 	quantity: number;
 };
 
-
 export default function Menu() {
 	const [cartItems, setCartItems] = useState<
 		{ product: product; count: number }[]
@@ -20,7 +19,6 @@ const totalPrice = cartItems.reduce(
 	(sum, item) => sum + item.count * item.product.price,
 	0
 );
-
 
 	const handelAddToCart = (item: product) => {
 		setCartItems((prev) => {
